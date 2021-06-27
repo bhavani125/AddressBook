@@ -4,6 +4,7 @@ import java.util.ArrayList;
  import java.util.Scanner;
 
   public class AddressBook {
+      //creating arraylist
       public static ArrayList<Contacts> contactsArrayList = new ArrayList<>();
       public static Scanner sc = new Scanner(System.in);
 
@@ -11,15 +12,25 @@ import java.util.ArrayList;
       public static void main(String[] args) {
           boolean options = true;
           while (options) {
-              System.out.println("Enter \n 1)To Add contacts \n 2) To edit contacts\n 3) To Exit");
+              System.out.println("Enter \n 1)To Add contacts \n 2) To edit contacts\n 3)To Delete Contacts\n 4)to display the list 5)To Exit");
               System.out.println("Enter the option : ");
               int option = sc.nextInt();
               switch (option) {
                   case 1:
+                      ///calling aadContacts method
                       AddressBook.addContacts();
                       break;
                   case 2:
+                      //calling editContacts method
                       AddressBook.editContacts();
+                      break;
+                  case 3:
+                      //calling deletingContacts method
+                      AddressBook.deletingContacts();
+                      break;
+                  case 4:
+                      ///calling displayContacts method
+                      AddressBook.displayContacts();
                       break;
                   default:
                       System.out.println("Invalid Option");
@@ -27,12 +38,23 @@ import java.util.ArrayList;
 
           }
       }
+       //creating a method to display contacts
+      private static void displayContacts() {
+          for (Contacts c : contactsArrayList) {
+
+          System.out.println(c);
+
+      }
+      }
 
       //creating a method for adding contacts
       static void addContacts() {
-          Contacts book = new Contacts();
-          int choice = 0;
+                  int choice = 0;
           while (choice == 0) {
+              //creating object book
+              Contacts book = new Contacts();
+
+
               System.out.println("Enter the firstName");
               book.setFirstName(sc.next());
               System.out.println("Enter the lastName");
@@ -50,8 +72,8 @@ import java.util.ArrayList;
               System.out.println("Enter the zip");
               book.setZip(sc.nextLong());
 
-              //calling toString
-              System.out.println(book.toString());
+              //using console
+              System.out.println(contactsArrayList.toString());
               contactsArrayList.add(book);
 
               System.out.println("Enter\n 1) To add Another contact \n 0) To exit\n");
@@ -60,15 +82,15 @@ import java.util.ArrayList;
                   choice = 1;
 
               }
+
           }
       }
 
       //creating method for editing contacts
       static void editContacts() {
-
-
           System.out.println("Enter firstname of the user you want to the edit:");
           String firstName = sc.next();
+          System.out.println(contactsArrayList.get(0).getFirstName());
           for (Contacts c : contactsArrayList) {
               if (c.getFirstName().equals(firstName)) {
 
@@ -102,19 +124,28 @@ import java.util.ArrayList;
                   }
               }
 
-              }
+          }
           System.out.println(contactsArrayList.toString());
 
-          }
       }
 
 
 
+      //creating method for deleting contacts
+      static void deletingContacts() {
+          System.out.println("Enter firstname of the user you want to delete:");
+          String firstName = sc.next();
+
+          for (int i = 0; i < contactsArrayList.size(); i++) {
+              Contacts c = contactsArrayList.get(i);
+              if (c.getFirstName().equals(firstName)) {
+
+                  contactsArrayList.remove(c);
+
+              }
+              System.out.println(contactsArrayList);
 
 
-
-
-
-
-
-
+          }
+          }
+      }
